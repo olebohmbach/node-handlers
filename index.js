@@ -8,13 +8,25 @@ module.exports = {
             //Command Handler:
             const commandFolders = fs.readdirSync(path);
             for (const folder of commandFolders) {
-                const commandFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith('.js'));
-                for (const file of commandFiles) {
-                    const command = require(`../../${path}/${folder}/${file}`);
-                    console.log(command)
+                var isd = fs.statSync(`${path}/${folder}`)
+                if (isd.isDirectory()) {
+                    commandFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith('.js'))
+                } else {
+                    commandFiles = fs.readdirSync(path).filter(file => file.endsWith('.js'))
+                }
+                for (let file of commandFiles) {
+                    if (folder == file){
+                        cmd = file
+                        
+                    } else {
+                        cmd = `${folder}/${file}`
+                    }
+                    const command = require(`../../${path}/${cmd}`);
+                    console.log("CMD" + command)
                     client.commands.push(command.name, command);
                     console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Command: `) + chalk.yellow(command.name));
-                }
+                
+            }
             }
         },
         functions: async (path, client) => {
