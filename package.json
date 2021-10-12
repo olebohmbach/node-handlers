@@ -1,0 +1,32 @@
+{
+  "name": "node-handlers",
+  "version": "0.1.3",
+  "description": "The Best Handlers for Node!",
+  "engines": {
+    "node": ">=16.6.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ole-is-live/node-handlers.git"
+  },
+  "keywords": [
+    "handlers",
+    "node",
+    "js"
+  ],
+  "author": "Ole_is_lve",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ole-is-live/node-handlers/issues"
+  },
+  "homepage": "https://github.com/Ole-is-live/node-handlers#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "discord.js": "^13.2.0",
+    "fs": "^0.0.1-security"
+  }
+}
