@@ -52,11 +52,11 @@ module.exports = {
 
 Afterwards we can create a quite simple example bot:
 ```js
-const { Client, Intents } = require('discord.js');
+const { Discord, Client, Intents} = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 const handlers = require('node-handlers');
 
-client.commands = new Discord.Collection();
+client.commands = []
 
 handlers.dc.functions('./functions', client)
 handlers.dc.events('./events', client)

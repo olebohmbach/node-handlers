@@ -2,8 +2,6 @@ const fs = require('fs');
 const chalk = require('chalk');
 module.exports = {
 
-
-
     dc: {
         commands: async (path, client) => {
 
@@ -12,8 +10,9 @@ module.exports = {
             for (const folder of commandFolders) {
                 const commandFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith('.js'));
                 for (const file of commandFiles) {
-                    const command = require(`${path}/${folder}/${file}`);
-                    client.commands.set(command.name, command);
+                    const command = require(`../../${path}/${folder}/${file}`);
+                    console.log(command)
+                    client.commands.push(command.name, command);
                     console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Command: `) + chalk.yellow(command.name));
                 }
             }
@@ -22,7 +21,7 @@ module.exports = {
             const functions = fs.readdirSync(path);
 
             for (const folder of functions) {
-                const functionFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith('.js'));
+                const functionFiles = fs.readdirSync(`../../${path}/${folder}`).filter(file => file.endsWith('.js'));
                 for (const file of functionFiles) {
                     const funcion = require(`${path}/${folder}/${file}`)
                     console.log(chalk.cyan(`[Functions]`) + chalk.cyan(` Loaded Function: `) + chalk.yellow(file));
@@ -34,7 +33,7 @@ module.exports = {
         events: async (path, client) => {
             const events = fs.readdirSync(path);
             for (const folder of events) {
-                const eventFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith('.js'));
+                const eventFiles = fs.readdirSync(`../../${path}/${folder}`).filter(file => file.endsWith('.js'));
                 for (const file of eventFiles) {
                     const event = require(`${path}/${folder}/${file}`);
                     if (event.once) client.once(event.name, (...args) => event.execute(...args, client));
