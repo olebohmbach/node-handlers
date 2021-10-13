@@ -3,7 +3,7 @@
 
 Node Handlers is a [Node.js](https://nodejs.org) module that allows you to easily use Handlers in node.js!
 
-At the moment there are only handlers for Discord bots, more will follow.
+At the moment there are only handlers for Discord Bots, more will follow.
 
 ## Installation
 
@@ -58,12 +58,14 @@ const handlers = require('node-handlers');
 
 client.commands = []
 
-handlers.dc.functions('./functions', client)
-handlers.dc.events('./events', client)
-handlers.dc.commands('./commands', client)
+handlers.dc.functions('PATH TO FUNCTIONS FOLDER', client) // e.g. './functions'
+handlers.dc.events('PATH TO EVENT FOLDER', client) // e.g. './events'
+handlers.dc.commands('PATH TO COMMAND FOLDER', client) // e.g. './commands'
 
-client.login('token')
+client.login('YOUR TOKEN') // Copy from your Application on https://discord.com/developers/applications
 ```
+Commands can either be placed directly in a folder (e.g. Commands) or in a subfolder in the folder. It's the same for the events: They can either be placed directly in a folder (e.g. Events) or in a subfolder in the folder.
+
 
 ## Links
 
