@@ -10,7 +10,7 @@ At the moment there are only handlers for Discord Bots, more will follow.
 **Node.js 16.6.0 or newer is required.**  
 
 ```sh-session
-npm install node-handlers
+npm install node-handlers@dev
 ```
 
 
@@ -18,13 +18,13 @@ npm install node-handlers
 
 Install all required dependencies:
 ```sh-session
-npm install node-handlers
+npm install node-handlers@dev
 
 ```
 
 How to use the Discord Handlers:
 ```js
-// Command Template
+// Command Template (Normal Command)
 const Discord = require('discord.js');
 module.exports = {
     name: "ping",
@@ -40,12 +40,54 @@ module.exports = {
 }
 ```
 ```js
-// Event Template
+// Command Template (Slash Command)
+const Discord = require('discord.js');
+module.exports = {
+    name: "ping",
+    description: "Replies with Pong",
+    slash: true,
+    async execute(interaction){
+            
+            const Pinging = new Discord.MessageEmbed()
+            Pinging.setTitle("> __**PONG!**__")
+
+            interaction.reply({embeds: [ Pinging ]});
+    }
+}
+```
+```js
+// Event Template (Ready)
 module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
 		console.log(`Ready! Logged in as ${client.user.tag}`);
+	},
+};
+```
+```js
+// Event Template (InteractionCreate)
+// Event Template
+module.exports = {
+	name: 'interactionCreate',
+	once: false,
+	async execute(interaction, client) {
+		if (interaction.isCommand()) {
+            console.log(interaction)
+            
+            const command = client.slashcmds.find(obj => {
+                return obj.name === interaction.commandName
+              })
+    
+            if (!command) return;
+    
+            try {
+                await command.execute(interaction);
+            } catch (error) {
+                console.error(error);
+                await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+            }
+        }
 	},
 };
 ```
