@@ -53,10 +53,14 @@ module.exports = {
 Afterwards we can create a quite simple example bot:
 ```js
 const { Discord, Client, Intents} = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]
+});
 const handlers = require('node-handlers');
 
 client.commands = []
+client.slashcmds = []
+
 
 handlers.dc.functions('PATH TO FUNCTIONS FOLDER', client) // e.g. './functions'
 handlers.dc.events('PATH TO EVENT FOLDER', client) // e.g. './events'
@@ -64,6 +68,7 @@ handlers.dc.commands('PATH TO COMMAND FOLDER', client) // e.g. './commands'
 
 client.login('YOUR TOKEN') // Copy from your Application on https://discord.com/developers/applications
 ```
+
 Commands can either be placed directly in a folder (e.g. Commands) or in a subfolder in the folder. It's the same for the events: They can either be placed directly in a folder (e.g. Events) or in a subfolder in the folder.
 
 
