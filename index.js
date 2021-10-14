@@ -3,7 +3,10 @@ const chalk = require('chalk');
 module.exports = {
 
     dc: { // All Handlers for Discord
+
         commands: async (path, client) => { // Command Handler
+            client.commands = []
+            client.slashcmds = []
             //Command Handler:
             const commandFolders = fs.readdirSync(path);
             for (const folder of commandFolders) {
@@ -24,66 +27,61 @@ module.exports = {
                     const command = require(`../../${path}/${cmd}`);
 
                     if (command.name) {
-
-                        if (command.slash) {
-
+                        if (command.slash) { // If Command is a Slash Command, then add it to the client (for-each guild)
                             client.slashcmds.push(command)
+                            console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Slashcommand: `) + chalk.yellow(command.name) + chalk.cyan(` | Now Waiting for Publishing `));
 
-
-                        } else {
+                        } else { // If Command is not a Slash Command
                             client.commands.push(command.name, command);
                             console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Command: `) + chalk.yellow(command.name));
                         }
 
-                    } else {
-                        console.log(chalk.cyan(`[Commands]`) + chalk.red(` ${cmd} has no name. `))
+                    } else { // If Command not has a name, then it is not a command and is not loaded into the client 
+                        console.log(chalk.cyan(`[Commands]`) + chalk.red(` ${cmd} has no name and was not loaded `))
                     }
                 }
             }
             setTimeout(async () => {
-                client.guilds.fetch()
-                
+                await client.guilds.fetch()
+               
                 var progress = 0
                 var failedguilds = 0
                 var end = false
-                client.guilds.cache.forEach(async guild => {
-                    
+                await client.guilds.cache.forEach(async guild => {
+
                     try {
                         let commands = await guild.commands.set(client.slashcmds)
-                        console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Commands for: `) + chalk.yellow(guild.name))
+                        console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Published all Slashcommands for: `) + chalk.yellow(guild.name))
 
 
                     } catch (error) {
-
                         failedguilds++
-                        console.log(chalk.cyan(`[Commands]`) + chalk.red(` Failed to load commands for ${guild.name} because ` + error))
+                        console.log(chalk.cyan(`[Commands]`) + chalk.red(` Failed to publish Slashcommands for ${guild.name} because ` + error))
                     } finally {
                         progress++
                         if (progress == client.guilds.cache.size) end = true
                     }
                 })
-                if (end) console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Commands for ${client.guilds.cache.size} guilds. `))
-                if (failedguilds > 0) console.log(chalk.cyan(`[Commands]`) + chalk.red(` Failed to load commands for ${failedguilds} guilds. `))
-            }, 1000)
-            
+                setTimeout(() => {
+                    if (end && failedguilds == 0) {
+                        console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded all Slashcommands for ${client.guilds.cache.size} guilds `))
+                    } 
+                    if (end && failedguilds > 0 && client.guilds.cache.size != failedguilds){
+                         console.log(chalk.cyan(`[Commands]`) + chalk.red(` Failed to publish Slashcommands for ${failedguilds} guilds. `))
+                    } else if (end && failedguilds > 0 && client.guilds.cache.size == failedguilds){
+                        console.log(chalk.cyan(`[Commands]`) + chalk.red(` Failed to publish Slashcommands all ${failedguilds} guilds. `))
+                    }
+                }, 1000)
 
 
 
 
 
+            })
 
         },
-        functions: async (path, client) => { // Function Handler (delete?)
-            const functions = fs.readdirSync(path);
-
-            for (const folder of functions) {
-                const functionFiles = fs.readdirSync(`../../${path}/${folder}`).filter(file => file.endsWith('.js'));
-                for (const file of functionFiles) {
-                    const funcion = require(`${path}/${folder}/${file}`)
-                    console.log(chalk.cyan(`[Functions]`) + chalk.cyan(` Loaded Function: `) + chalk.yellow(file));
-                }
-            }
-        },
+        
+        
 
         events: async (path, client) => { // Event Handler
             const eventFolders = fs.readdirSync(path);
