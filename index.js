@@ -2,10 +2,8 @@ const fs = require('fs');
 const chalk = require('chalk');
 module.exports = {
 
-    dc: {
-        commands: async (path, client) => {
-
-
+    dc: { // All Handlers for Discord
+        commands: async (path, client) => { // Command Handler
             //Command Handler:
             const commandFolders = fs.readdirSync(path);
             for (const folder of commandFolders) {
@@ -75,7 +73,7 @@ module.exports = {
 
 
         },
-        functions: async (path, client) => {
+        functions: async (path, client) => { // Function Handler (delete?)
             const functions = fs.readdirSync(path);
 
             for (const folder of functions) {
@@ -87,8 +85,7 @@ module.exports = {
             }
         },
 
-        events: async (path, client) => {
-            //Command Handler:
+        events: async (path, client) => { // Event Handler
             const eventFolders = fs.readdirSync(path);
             for (const folder of eventFolders) {
                 var isd = fs.statSync(`${path}/${folder}`)
