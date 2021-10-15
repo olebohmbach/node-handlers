@@ -10,7 +10,7 @@ At the moment there are only handlers for Discord Bots, more will follow.
 **Node.js 16.6.0 or newer is required.**  
 
 ```sh-session
-npm install node-handlers@dev
+npm install node-handlers
 ```
 
 
@@ -18,25 +18,26 @@ npm install node-handlers@dev
 
 Install all required dependencies:
 ```sh-session
-npm install node-handlers@dev
+npm install node-handlers
 
 ```
 
-How to use the Discord Handlers:
+## How to use the Discord Handlers:
+### Commands
 ```js
 // Command Template (Normal Command)
 const Discord = require('discord.js');
 module.exports = {
     name: "ping",
-    description: "Show the Ping",
-    async execute(message, args) {
-        const Pinging = await message.channel.send(new Discord.MessageEmbed()
-            .setTitle("> __**PING!**__")
-            .setDescription(`**PONG! Latenz: ${Pinging.createdTimestamp - message.createdTimestamp}ms. | API Latenz: ${Math.round(message.client.ws.ping)}ms.**`)
-            .setTimestamp()
-            .setColor("GREEN")
-            .setFooter("Ping Command"))
-     }
+    description: "Replies with Pong",
+    slash: false,
+    async execute(message){
+            
+            const Pinging = new Discord.MessageEmbed()
+            Pinging.setTitle("> __**PONG!**__")
+
+            message.channel.send({embeds: [ Pinging ]});
+    }
 }
 ```
 ```js
@@ -55,8 +56,9 @@ module.exports = {
     }
 }
 ```
+### Events
 ```js
-// Event Template (Ready)
+// Event Template ('Ready', Runs when the bot is logged in)
 module.exports = {
 	name: 'ready',
 	once: true,
@@ -66,17 +68,15 @@ module.exports = {
 };
 ```
 ```js
-// Event Template (InteractionCreate)
-// Event Template
+// Event Template ('InteractionCreate', Is needed to interact with slash commands)
 module.exports = {
 	name: 'interactionCreate',
 	once: false,
 	async execute(interaction, client) {
 		if (interaction.isCommand()) {
-            console.log(interaction)
             
-            const command = client.slashcmds.find(obj => {
-                return obj.name === interaction.commandName
+            const command = client.slashcmds.find(cmd => {
+                return cmd.name === interaction.commandName
               })
     
             if (!command) return;
