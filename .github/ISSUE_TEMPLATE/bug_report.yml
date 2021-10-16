@@ -1,5 +1,5 @@
 name: Bug report
-description: Report incorrect or unexpected behavior of discord.js
+description: Report incorrect or unexpected behavior
 labels: [bug, need repro]
 body:
   - type: markdown
