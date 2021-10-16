@@ -103,8 +103,6 @@ const handlers = require('node-handlers');
 client.commands = []
 client.slashcmds = []
 
-
-handlers.dc.functions('PATH TO FUNCTIONS FOLDER', client) // e.g. './functions'
 handlers.dc.events('PATH TO EVENT FOLDER', client) // e.g. './events'
 handlers.dc.commands('PATH TO COMMAND FOLDER', client) // e.g. './commands'
 
