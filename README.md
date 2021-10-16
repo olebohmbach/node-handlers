@@ -23,9 +23,30 @@ npm install node-handlers
 ```
 
 ## How to use the Discord Handlers:
-### Commands
+
+### Example Directory Structure
+#### This is an example structure for the example below
+##### The files named in the example structure are under the example structure
+```text
+📦 path/to/directory
+ ┣📂 commands
+ ┃ ┣📂 help
+ ┃ ┃ ┗📜 ping.js
+ ┃ ┗📜 pong.js
+ ┣📂 events
+ ┃ ┣📂 interactions
+ ┃ ┃ ┗📜 interactionCreate.js
+ ┃ ┗📜 ready.js
+ ┗📜 index.js
+```
+>**_Commands can either be placed directly in a folder (e.g. commands) or in a subfolder (e.g. commands/help) 
+>in the folder. It's the same for the events: They can 
+>either be placed directly in a folder (e.g. events) or in a subfolder (e.g. events/interactions) in the folder._**
+
+### Command Template
+
 ```js
-// Command Template (Normal Command)
+// Command Template (Normal Command, 'ping.js')
 const Discord = require('discord.js');
 module.exports = {
     name: "ping",
@@ -41,10 +62,10 @@ module.exports = {
 }
 ```
 ```js
-// Command Template (Slash Command)
+// Command Template (Slash Command, 'pong.js')
 const Discord = require('discord.js');
 module.exports = {
-    name: "ping",
+    name: "pong",
     description: "Replies with Pong",
     slash: true,
     async execute(interaction){
@@ -56,9 +77,9 @@ module.exports = {
     }
 }
 ```
-### Events
+### Event Template
 ```js
-// Event Template ('Ready', Runs when the bot is logged in)
+// Event Template (Runs when the bot is logged in, 'ready.js')
 module.exports = {
 	name: 'ready',
 	once: true,
@@ -68,7 +89,7 @@ module.exports = {
 };
 ```
 ```js
-// Event Template ('InteractionCreate', Is needed to interact with slash commands)
+// Event Template (Is needed to interact with slash commands, 'InteractionCreate.js')
 module.exports = {
 	name: 'interactionCreate',
 	once: false,
@@ -92,16 +113,12 @@ module.exports = {
 };
 ```
 
-Afterwards we can create a quite simple example bot:
+Afterwards we can create a quite simple example bot with the Event and Command Handler:
 ```js
+// This is the 'index.js' from the example structure
 const { Discord, Client, Intents} = require('discord.js');
-const client = new Client({
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]
-});
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]});
 const handlers = require('node-handlers');
-
-client.commands = []
-client.slashcmds = []
 
 handlers.dc.events('PATH TO EVENT FOLDER', client) // e.g. './events'
 handlers.dc.commands('PATH TO COMMAND FOLDER', client) // e.g. './commands'
@@ -109,7 +126,6 @@ handlers.dc.commands('PATH TO COMMAND FOLDER', client) // e.g. './commands'
 client.login('YOUR TOKEN') // Copy from your Application on https://discord.com/developers/applications
 ```
 
-Commands can either be placed directly in a folder (e.g. Commands) or in a subfolder in the folder. It's the same for the events: They can either be placed directly in a folder (e.g. Events) or in a subfolder in the folder.
 
 
 ## Links
