@@ -5,8 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use Discord for questions: https://discord.gg/djs
-        If you are reporting a voice issue, please post your issue at https://github.com/discordjs/voice/issues
+        Use Discord for questions: https://dsc.gg/ole_is_live
   - type: textarea
     id: description
     attributes:
@@ -47,13 +46,20 @@ body:
     validations:
       required: true
   - type: input
+    id: node-handlers-version
+    attributes:
+      label: node-handlers version
+      description: Which version of node-handlers are you using?
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
     id: node-version
     attributes:
       label: Node.js version
       description: |
         Which version of Node.js are you using? Run `node --version` in your project directory and paste the output.
-        If you are using TypeScript, please include its version (`npm list typescript`) as well. 
-      placeholder: Node.js version 16.6+ is required for version 13.0.0+
+      placeholder: Node.js version 16.6+ is required
     validations:
       required: true
   - type: input
@@ -72,57 +78,4 @@ body:
         - High (immediate attention needed)
     validations:
       required: true
-  - type: dropdown
-    id: partials
-    attributes:
-      label: Which partials do you have configured?
-      description: |
-        Check your Client constructor for the `partials` key.
 
-        Tip: you can select multiple items
-      options:
-        - No Partials
-        - USER
-        - CHANNEL
-        - GUILD_MEMBER
-        - MESSAGE
-        - REACTION
-      multiple: true
-    validations:
-      required: true
-  - type: dropdown
-    id: intents
-    attributes:
-      label: Which gateway intents are you subscribing to?
-      description: |
-        Check your Client constructor for the `intents` key.
-
-        Tip: you can select multiple items
-      options:
-        - GUILDS
-        - GUILD_MEMBERS
-        - GUILD_BANS
-        - GUILD_EMOJIS_AND_STICKERS
-        - GUILD_INTEGRATIONS
-        - GUILD_WEBHOOKS
-        - GUILD_INVITES
-        - GUILD_VOICE_STATES
-        - GUILD_PRESENCES
-        - GUILD_MESSAGES
-        - GUILD_MESSAGE_REACTIONS
-        - GUILD_MESSAGE_TYPING
-        - DIRECT_MESSAGES
-        - DIRECT_MESSAGE_REACTIONS
-        - DIRECT_MESSAGE_TYPING
-      multiple: true
-    validations:
-      required: true
-  - type: input
-    id: dev-release
-    attributes:
-      label: I have tested this issue on a development release
-      placeholder: d23280c
-      description: |
-        The issue might already be fixed in a development release. This is not required, but helps us greatly.
-        To install the latest development release run `npm i discord.js@dev` in your project directory.
-        Run `npm list discord.js` and use the last part of the printed information (`d23280c` for `discord.js@xx.x.x-dev.1530234593.d23280c`)
