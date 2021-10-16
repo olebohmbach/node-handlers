@@ -30,22 +30,15 @@ body:
       description: Include a reproducible, minimal code sample. This will be automatically formatted into code, so no need for backticks.
       render: typescript
       placeholder: |
-        const { Client, Intents } = require('discord.js');
-        const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+        
+  const { Discord, Client, Intents} = require('discord.js');
+  const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]});
+  const handlers = require('node-handlers');
 
-        client.on('ready', () => {
-          console.log(`Logged in as ${client.user.tag}!`);
-        });
+  handlers.dc.events('PATH TO EVENT FOLDER', client) // e.g. './events'
+  handlers.dc.commands('PATH TO COMMAND FOLDER', client) // e.g. './commands'
 
-        client.on('interactionCreate', async interaction => {
-          if (!interaction.isCommand()) return;
-
-          if (interaction.commandName === 'ping') {
-            await interaction.reply('Pong!');
-          }
-        });
-
-        client.login('token');
+  client.login('YOUR TOKEN') // Copy from your Application on https://discord.com/developers/applications
   - type: input
     id: djs-version
     attributes:
