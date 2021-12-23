@@ -33,7 +33,7 @@ module.exports = {
 
                 if (command.type === 'directory') {
                     for (const file of command.files) {
-                        const command_file = require(`../../${path}/${command.name}/${file}`);
+                        const command_file = require(`${path}/${command.name}/${file}`);
                         if (command_file.name) {
                             if (command_file.slash) { // If Command is a Slash Command, then add it to the client (for-each guild)
                                 client.slashcmds.push(command_file)
@@ -49,7 +49,7 @@ module.exports = {
                         }
                     }
                 } else {
-                    const command_file = require(`../../${path}/${command.name}`);
+                    const command_file = require(`${path}/${command.name}`);
                     if (command_file.name) {
                         if (command_file.slash) { // If Command is a Slash Command, then add it to the client (for-each guild)
                             client.slashcmds.push(command_file)
@@ -61,7 +61,7 @@ module.exports = {
                         }
 
                     } else { // If Command not has a name, then it is not a command and is not loaded into the client 
-                        console.log(chalk.cyan(`[Commands]`) + chalk.red(` ${cmd} has no name and was not loaded `))
+                        console.log(chalk.cyan(`[Commands]`) + chalk.red(` $No name and was not loaded `))
 
                     }
                 }
@@ -105,7 +105,7 @@ module.exports = {
 
 
 
-            })
+            }, 5000)
 
         },
 
@@ -136,7 +136,7 @@ module.exports = {
 
                 if (event.type === 'directory') {
                     for (const file of event.files) {
-                        const event_file = require(`../../${path}/${event.name}/${file}`);
+                        const event_file = require(`${path}/${event.name}/${file}`);
                         if (event_file.name) {
 
                             if (event_file.once) client.once(event_file.name, (...args) => event_file.execute(...args, client));
@@ -149,7 +149,7 @@ module.exports = {
                         }
                     }
                 } else {
-                    const event_file = require(`../../${path}/${event.name}`);
+                    const event_file = require(`${path}/${event.name}`);
                     if (event_file.name) {
 
                         if (event_file.once) client.once(event_file.name, (...args) => event_file.execute(...args, client));

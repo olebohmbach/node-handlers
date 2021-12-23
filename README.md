@@ -120,8 +120,8 @@ const { Discord, Client, Intents} = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]});
 const handlers = require('node-handlers');
 
-handlers.dc.events('PATH TO EVENT FOLDER', client) // e.g. './events'
-handlers.dc.commands('PATH TO COMMAND FOLDER', client) // e.g. './commands'
+handlers.dc.events(__dirname + 'PATH TO EVENT FOLDER', client) // e.g. './events'
+handlers.dc.commands(__dirname + 'PATH TO COMMAND FOLDER', client) // e.g. './commands'
 
 client.login('YOUR TOKEN') // Copy from your Application on https://discord.com/developers/applications
 ```
