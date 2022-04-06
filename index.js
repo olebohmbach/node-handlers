@@ -5,7 +5,7 @@ module.exports = {
 
     dc: { // All Handlers for Discord
 
-        commands: async (path, client) => { // Command Handler
+        commands: async (path, client) => { // The Start of the command Hander
             const commands = []; // Create an array to store commands temporarily
             client.commands = [] // Create an array to store commands permanently
             client.slashcmds = [] // Create an array to store slash commands permanently
@@ -168,5 +168,8 @@ module.exports = {
 
 
         },
+    },
+
+    other: {
     }
 }
