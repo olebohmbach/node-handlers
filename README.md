@@ -123,14 +123,14 @@ const handlers = require('node-handlers');
 handlers.dc.events(__dirname + 'PATH TO EVENT FOLDER', client) // e.g. './events'
 handlers.dc.commands(__dirname + 'PATH TO COMMAND FOLDER', client) // e.g. './commands'
 
-client.login('YOUR TOKEN') // Copy from your Application on https://discord.com/developers/applications
+client.login('YOUR_TOKEN') // Copy from your Application on https://discord.com/developers/applications/<ID>/bot
 ```
 
 
 
 ## Links
 
-- [Support Discord server](https://dsc.gg/ole_is_live)
+- [Support Discord Server](https://dsc.gg/ole_is_live)
 - [GitHub](https://github.com/Ole-is-live/node-handlers)
 - [NPM](https://www.npmjs.com/package/node-handlers)
 
@@ -139,6 +139,3 @@ client.login('YOUR TOKEN') // Copy from your Application on https://discord.com/
 Before creating an issue, please ensure that it hasn't already been reported, and check the
 [documentation](https://www.npmjs.com/package/node-handlers).  
 
-## Help
-
-If you do not understand something in the documentation, if you have problems or you need support, then do not hesitate to join the official [Server](https://dsc.gg/ole_is_live).
