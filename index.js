@@ -1,13 +1,16 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
+// if (!fs.existsSync('./config.json')) require('./setup.js');
+
 module.exports = {
+
+
 
     dc: { // All Handlers for Discord
 
         commands: async (path, client) => { // The Start of the command Hander
-            const commands = []; // Create an array to store commands temporarily
-            client.commands = [] // Create an array to store commands permanently
+            const slashcmds = []; // Create an array to store commands temporarily
             client.slashcmds = [] // Create an array to store slash commands permanently
 
             //Command Handler: 
@@ -16,34 +19,27 @@ module.exports = {
 
                 var isd = fs.statSync(`${path}/${subfolder_file}`)
                 if (isd.isDirectory()) {
-                    commands.push({
+                    slashcmds.push({
                         name: subfolder_file,
                         type: 'directory',
                         files: fs.readdirSync(`${path}/${subfolder_file}`)
                     })
                 } else {
-                    commands.push({
+                    slashcmds.push({
                         name: subfolder_file,
                         type: 'file',
                     })
                 }
             }
 
-            for (const command of commands) {
+            for (const command of slashcmds) {
 
                 if (command.type === 'directory') {
                     for (const file of command.files) {
                         const command_file = require(`${path}/${command.name}/${file}`);
                         if (command_file.name) {
-                            if (command_file.slash) { // If Command is a Slash Command, then add it to the client (for-each guild)
-                                client.slashcmds.push(command_file)
-                                console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Slashcommand: `) + chalk.yellow(command_file.name) + chalk.cyan(` | Now Waiting for Publishing `));
-
-                            } else { // If Command is not a Slash Command
-                                client.commands.push(command_file.name, command_file);
-                                console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Command: `) + chalk.yellow(command_file.name));
-                            }
-
+                            client.slashcmds.push(command_file)
+                            console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Slashcommand: `) + chalk.yellow(command_file.name) + chalk.cyan(` | Now Waiting for Publishing `))
                         } else { // If Command not has a name, then it is not a command and is not loaded into the client 
                             console.log(chalk.cyan(`[Commands]`) + chalk.red(` ${cmd} has no name and was not loaded `))
                         }
@@ -51,14 +47,7 @@ module.exports = {
                 } else {
                     const command_file = require(`${path}/${command.name}`);
                     if (command_file.name) {
-                        if (command_file.slash) { // If Command is a Slash Command, then add it to the client (for-each guild)
-                            client.slashcmds.push(command_file)
-                            console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Slashcommand: `) + chalk.yellow(command_file.name) + chalk.cyan(` | Now Waiting for Publishing `));
-
-                        } else { // If Command is not a Slash Command
-                            client.commands.push(command_file.name, command_file);
-                            console.log(chalk.cyan(`[Commands]`) + chalk.cyan(` Loaded Command: `) + chalk.yellow(command_file.name));
-                        }
+                        client.slashcmds.push(command_file)
 
                     } else { // If Command not has a name, then it is not a command and is not loaded into the client 
                         console.log(chalk.cyan(`[Commands]`) + chalk.red(` $No name and was not loaded `))
@@ -100,13 +89,7 @@ module.exports = {
                         console.log(chalk.cyan(`[Commands]`) + chalk.red(` Failed to publish Slashcommands on all ${failedguilds} guilds. `))
                     }
                 }, 1000)
-
-
-
-
-
             }, 5000)
-
         },
 
 

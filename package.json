@@ -1,6 +1,6 @@
 {
   "name": "node-handlers",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "The Best Handlers for Node!",
   "engines": {
     "node": ">=16.6.0"

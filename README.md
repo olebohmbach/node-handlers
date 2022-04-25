@@ -46,28 +46,12 @@ npm install node-handlers
 ### Command Template
 
 ```js
-// Command Template (Normal Command, 'ping.js')
-const Discord = require('discord.js');
-module.exports = {
-    name: "ping",
-    description: "Replies with Pong",
-    slash: false,
-    async execute(message){
-            
-            const Pinging = new Discord.MessageEmbed()
-            Pinging.setTitle("> __**PONG!**__")
-
-            message.channel.send({embeds: [ Pinging ]});
-    }
-}
-```
-```js
-// Command Template (Slash Command, 'pong.js')
+// Command Template 'pong.js'
 const Discord = require('discord.js');
 module.exports = {
     name: "pong",
     description: "Replies with Pong",
-    slash: true,
+    type: 1, // 1 = Command, 2 = User, 3 = Message
     async execute(interaction){
             
             const Pinging = new Discord.MessageEmbed()
