@@ -114,7 +114,6 @@ client.login('YOUR_TOKEN') // Copy from your Application on https://discord.com/
 
 ## Links
 
-- [Support Discord Server](https://dsc.gg/ole_is_live)
 - [GitHub](https://github.com/Ole-is-live/node-handlers)
 - [NPM](https://www.npmjs.com/package/node-handlers)
 
@@ -122,4 +121,3 @@ client.login('YOUR_TOKEN') // Copy from your Application on https://discord.com/
 
 Before creating an issue, please ensure that it hasn't already been reported, and check the
 [documentation](https://www.npmjs.com/package/node-handlers).  
-
